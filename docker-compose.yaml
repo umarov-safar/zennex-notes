@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        user: safar
+        uid: 1000
+    container_name: laravel_app
+    volumes:
+      - ./:/var/www
+    networks:
+      - zennex
+    depends_on:
+      - mysql
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - zennex
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: ${DB_DATABASE:-zennex_notes}
+      MYSQL_USER: ${DB_USERNAME:-zennex}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - zennex
+
+volumes:
+  db_data:
+
+networks:
+  zennex:
+    name: zennex
+    driver: bridge
