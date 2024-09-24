@@ -4,8 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        user: safar
-        uid: 1000
+        user: ${USER:-laravel}
+        uid: ${UID:-1000}
     container_name: laravel_app
     volumes:
       - ./:/var/www
