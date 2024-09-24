@@ -7,6 +7,8 @@ services:
         user: ${USER:-laravel}
         uid: ${UID:-1000}
     container_name: laravel_app
+    ports:
+      - ${VITE_PORT:-5173}:5173
     volumes:
       - ./:/var/www
     networks:

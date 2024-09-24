@@ -1,0 +1,10 @@
+openapi: 3.0.0
+info:
+  title: TheNoter app API
+  description: API Documention for TheNoter App
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+
+paths:
+

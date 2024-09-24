@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/api-docs/swagger', function () {
+    return view('api-docs.swagger');
+})->name('api-docs');
