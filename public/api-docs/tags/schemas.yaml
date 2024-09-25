@@ -1,0 +1,64 @@
+TagReadOnlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      format: int64
+      description: ID заметки
+      example: 1
+    created_at:
+      type: string
+      format: date-time
+      description: Дата создание
+      example: '2024-09-25T13:45:30Z'
+    updated_at:
+      type: string
+      format: date-time
+      description: Дата изминение
+      example: '2024-09-25T13:50:00Z'
+    user_id:
+      type: integer
+      example: 2
+      description: ID пользователя
+
+TagFillableProperties:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Название
+      example: Test Tag
+
+
+Required:
+  required:
+    - name
+
+TagRequest:
+  allOf:
+    - $ref: '#/TagFillableProperties'
+    - $ref: '#/Required'
+
+Tag:
+  allOf:
+    - $ref: '#/TagReadOnlyProperties'
+    - $ref: '#/TagFillableProperties'
+
+TagResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/Tag'
+    meta:
+      type: object
+
+ListTagResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Tag'
+    meta:
+      type: object
+

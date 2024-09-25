@@ -1,0 +1,128 @@
+CreateAndAllTag:
+  get:
+    summary: Список тегов
+    tags:
+      - tags
+    parameters:
+      - name: cursor
+        in: query
+        required: false
+        description: Курсор пагинации
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/ListTagResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+  post:
+      summary: Создание заметки
+      tags:
+        - tags
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/TagRequest'
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './schemas.yaml#/TagResponse'
+        '400':
+          $ref: '../index.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../index.yaml#/components/responses/Unauthenticated'
+        '403':
+          $ref: '../index.yaml#/components/responses/Forbidden'
+        '500':
+          $ref: '../index.yaml#/components/responses/ServerError'
+
+
+CurrentTag:
+  get:
+    summary: Получение заметку по ID
+    tags:
+      - tags
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+      - $ref: '../index.yaml#/components/parameters/Include'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/TagResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+  patch:
+    summary: Редактировать заметку
+    tags:
+      - tags
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+      - $ref: '../index.yaml#/components/parameters/Include'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/TagRequest'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/TagResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+  delete:
+    summary: Удалить заметку
+    tags:
+      - tags
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+    responses:
+      '200':
+        $ref: '../index.yaml#/components/responses/EmptyResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'

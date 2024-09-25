@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Notes;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateNoteRequest extends FormRequest
 {

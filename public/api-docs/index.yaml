@@ -27,6 +27,11 @@ paths:
   /notes/{id}:
     $ref: './notes/paths.yaml#/CurrentNote'
 
+  /tags:
+    $ref: './tags/paths.yaml#/CreateAndAllTag'
+  /tags/{id}:
+    $ref: './tags/paths.yaml#/CurrentTag'
+
 components:
   parameters:
     PathId:
