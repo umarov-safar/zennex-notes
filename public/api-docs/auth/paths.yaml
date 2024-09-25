@@ -1,0 +1,64 @@
+Login:
+  post:
+    summary: Login
+    tags:
+      - auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/LoginRequest'
+    responses:
+      '200':
+        description: Успешный вход в систему
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/LoginResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+Register:
+  post:
+    summary: Register
+    tags:
+      - auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/RegisterRequest'
+    responses:
+      '200':
+        description: Успешная регистрация
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/RegisterResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+Logout:
+  post:
+    summary: Выйти из системы
+    tags:
+      - auth
+    responses:
+      '200':
+        $ref: '../index.yaml#/components/responses/EmptyResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'

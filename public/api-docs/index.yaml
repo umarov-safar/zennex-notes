@@ -6,5 +6,91 @@ info:
 servers:
   - url: http://localhost:8000/api
 
-paths:
+tags:
+  - name: auth
+    description: Auth
+  - name: notes
+    description: Заметки
+  - name: tags
+    description: Теги
 
+paths:
+  /auth/login:
+    $ref: './auth/paths.yaml#/Login'
+  /auth/register:
+    $ref: './auth/paths.yaml#/Register'
+  /auth/logout:
+    $ref: './auth/paths.yaml#/Logout'
+
+components:
+  parameters:
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: Идентификатор ресурса
+      schema:
+        type: integer
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Список связанных ресурсов, разделенных запятыми, для включения
+      schema:
+        type: string
+  responses:
+    EmptyResponse:
+      description: Пустой ответ
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                nullable: true
+                example: null
+    BadRequest:
+      description: Неверный запрос.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: some bad request
+              errors:
+                type: object
+                properties:
+                  field_name:
+                    type: array
+                    items:
+                      type: string
+    Unauthenticated:
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthenticated
+    ServerError:
+      description: Внутренняя ошибка сервера.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: some error from server
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+security:
+  - BearerAuth: []

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Укажи artisan компанд"
+    exit 1
+fi
+
+docker compose exec app php artisan "$@"
