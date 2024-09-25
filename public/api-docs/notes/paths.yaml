@@ -1,0 +1,102 @@
+CreateNote:
+  post:
+    summary: Создание заметки
+    tags:
+      - notes
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/NoteRequest'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/NoteResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+
+CurrentNote:
+  get:
+    summary: Получение заметку по ID
+    tags:
+      - notes
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+      - $ref: '../index.yaml#/components/parameters/Include'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/NoteResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+  patch:
+    summary: Редактировать заметку
+    tags:
+      - notes
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+      - $ref: '../index.yaml#/components/parameters/Include'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/NoteRequest'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/NoteResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+  delete:
+    summary: Удалить заметку
+    tags:
+      - notes
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+    responses:
+      '200':
+        $ref: '../index.yaml#/components/responses/EmptyResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '404':
+        $ref: '../index.yaml#/components/responses/NotFound'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'

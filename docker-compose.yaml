@@ -37,6 +37,8 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE:-zennex_notes}
       MYSQL_USER: ${DB_USERNAME:-zennex}
       MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - 3306:3306
     volumes:
       - db_data:/var/lib/mysql
     networks:

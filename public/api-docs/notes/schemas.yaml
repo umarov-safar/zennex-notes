@@ -1,0 +1,59 @@
+NoteReadOnlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      format: int64
+      description: ID заметки
+      example: 1
+    created_at:
+      type: string
+      format: date-time
+      description: Дата создание
+      example: '2024-09-25T13:45:30Z'
+    updated_at:
+      type: string
+      format: date-time
+      description: Дата изминение
+      example: '2024-09-25T13:50:00Z'
+    user_id:
+      type: integer
+      example: 2
+      description: ID пользователя
+
+NoteFillableProperties:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Название заметки
+      example: Мая заметка
+    description:
+      type: string
+      description: Описание заметки
+      example: Описание заметки здесь
+
+
+Required:
+  required:
+    - title
+    - description
+
+NoteRequest:
+  allOf:
+    - $ref: '#/NoteFillableProperties'
+    - $ref: '#/Required'
+
+Note:
+  allOf:
+    - $ref: '#/NoteReadOnlyProperties'
+    - $ref: '#/NoteFillableProperties'
+
+NoteResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/Note'
+    meta:
+      type: object
+
