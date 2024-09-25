@@ -21,8 +21,8 @@ class StoreNoteRequest extends FormRequest
             'title' => ['required', 'string', 'max:400'],
             'description' => ['required', 'string'],
 
-            // тут не буду проверить детально потому что данные просто берется из Auth.
-            // добавиль user_id тут потму что в контроллере вызиваю метод validated()
+            // user_id не буду проверить детально потому что данные просто берется из Auth::id().
+            // добавил user_id тут потму что в контроллере вызиваю метод validated()
             'user_id' => ['required']
         ];
     }
