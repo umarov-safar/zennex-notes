@@ -24,12 +24,17 @@ docker-compose up -d
 docker-compose exec app composer install
 ```
 
-6. Миграция
+6. Генерировать ключ
+```shell
+docker-compose exec app php artisan key:generate
+```
+
+7. Миграция
 ```shell
 docker-compose exec app php artisan migrate
 ```
 
-7. npm
+8. npm
 ```shell
 docker-compose exec app npm install
 
@@ -37,7 +42,7 @@ docker-compose exec app npm run build
 ```
 
 ### API url
-[http:://localhost:8000/api-docs/swagger](http:://localhost:8000/api-docs/swagger)
+[http://localhost:8000/api-docs/swagger](http://localhost:8000/api-docs/swagger)
 
 
 ### Наслаждайтесь!
