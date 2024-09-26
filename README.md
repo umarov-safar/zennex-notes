@@ -19,7 +19,17 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-4. npm
+5. Composer install
+```shell
+docker-compose exec app composer install
+```
+
+6. Миграция
+```shell
+docker-compose exec app php artisan migrate
+```
+
+7. npm
 ```shell
 docker-compose exec app npm install
 
@@ -30,3 +40,4 @@ docker-compose exec app npm run build
 [http:://localhost:8000/api-docs/swagger](http:://localhost:8000/api-docs/swagger)
 
 
+### Наслаждайтесь!
