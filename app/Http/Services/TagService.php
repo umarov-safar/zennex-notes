@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TagService
 {
-    public function paginateForCurrentUser(int $user_id, string $cursor = null)
+    public function paginateForCurrentUser(int $user_id)
     {
         /** @var Builder $tags */
         $tags = Tag::where('user_id', $user_id);

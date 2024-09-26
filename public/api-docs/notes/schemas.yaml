@@ -54,6 +54,32 @@ NoteRequest:
     - $ref: '#/TagsIds'
     - $ref: '#/Required'
 
+NoteSearchRequest:
+  type: object
+  properties:
+    filter:
+      type: object
+      properties:
+        title_like:
+          type: string
+        description_like:
+          type: string
+        tags:
+          type: array
+          items:
+            type: integer
+          example: [1, 2, 3]
+          description: Фильт по тегам
+    sort:
+      type: array
+      items:
+        type: string
+      example: ["created_at"]
+    include:
+      type: array
+      example: ['tags']
+      items:
+        type: string
 NoteIncludes:
   type: object
   properties:

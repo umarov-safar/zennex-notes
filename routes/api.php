@@ -27,6 +27,8 @@ Route::middleware('auth:sanctum')
     ->group(function () {
         Route::post('auth/logout', [AuthController::class, 'logout']);
 
-        Route::resource('notes', NoteController::class);
+        Route::resource('notes', NoteController::class)->except(['index']);
+        Route::post('notes:search', [NoteController::class, 'index']);
+
         Route::resource('tags', TagController::class);
     });

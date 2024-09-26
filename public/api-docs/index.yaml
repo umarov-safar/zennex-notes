@@ -22,6 +22,9 @@ paths:
   /auth/logout:
     $ref: './auth/paths.yaml#/Logout'
 
+  # Этот метод используется для получения списка данных для фильтрации и сортировки
+  /notes:search:
+    $ref: './notes/paths.yaml#/SearchNotes'
   /notes:
     $ref: './notes/paths.yaml#/CreateNote'
   /notes/{id}:

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommonSearchRequest;
 use App\Http\Requests\Notes\StoreNoteRequest;
 use App\Http\Requests\Notes\UpdateNoteRequest;
 use App\Http\Resources\EmptyResource;
 use App\Http\Resources\NoteResource;
 use App\Http\Services\NoteService;
 use App\Models\Note;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class NoteController extends Controller
 {
@@ -19,9 +22,13 @@ class NoteController extends Controller
     {
     }
 
-    public function index()
+    public function index(CommonSearchRequest $request)
     {
-        // will start when thinking about sort,filter
+        $request->merge(['user_id' => Auth::id()]);
+
+        $notes = $this->noteService->search($request);
+
+        return NoteResource::collection($notes);
     }
 
     public function store(StoreNoteRequest $request): NoteResource
@@ -29,11 +36,15 @@ class NoteController extends Controller
         return new NoteResource($this->noteService->upsert($request->validated()));
     }
 
-    public function show(Note $note): NoteResource
+    public function show(Request $request, Note $note): NoteResource
     {
         $this->authorize('view', $note);
 
-        return new NoteResource($note->load('tags'));
+        if ($include = $request->query->get('include')) {
+            $note->load(explode(',', $include));
+        }
+
+        return new NoteResource($note);
     }
 
     public function update(UpdateNoteRequest $request, Note $note): NoteResource

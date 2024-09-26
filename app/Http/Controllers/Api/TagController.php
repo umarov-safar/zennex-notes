@@ -31,11 +31,15 @@ class TagController extends Controller
     }
 
 
-    public function show(Tag $tag)
+    public function show(Request $request, Tag $tag)
     {
         $this->authorize('view', $tag);
 
-        return new TagResource($tag->load('notes'));
+        if ($include = $request->query->get('include')) {
+            $tag->load(explode(',', $include));
+        }
+
+        return new TagResource($tag);
     }
 
     /**

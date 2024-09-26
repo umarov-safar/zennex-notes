@@ -25,6 +25,39 @@ CreateNote:
       '500':
         $ref: '../index.yaml#/components/responses/ServerError'
 
+SearchNotes:
+  post:
+    summary: Получить список заметки
+    description: |
+      * В поле filter укажите, по каким полям хотите делать фильтрацию. Например, {"title": "Test"} равно SQL-запросу WHERE title = 'Test', а {"title_like": "Test"} равно WHERE title LIKE '%Test%'.
+      * В поле sort укажите, по каким полям делать сортировку. Если перед именем поля стоит знак -, сортировка будет выполнена в порядке убывания (DESC), например, {"-title"} — сортировка по полю title по убыванию.
+      * В поле include укажите связные ресурсы. для заметки есть tags и owner
+
+      Если ничего не укажете в теле, тогда просто получите список заметок
+    tags:
+      - notes
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/NoteSearchRequest'
+    responses:
+      '200':
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/NoteResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthenticated'
+      '403':
+        $ref: '../index.yaml#/components/responses/Forbidden'
+      '500':
+        $ref: '../index.yaml#/components/responses/ServerError'
+
 
 CurrentNote:
   get:
