@@ -35,7 +35,7 @@ class TagController extends Controller
     {
         $this->authorize('view', $tag);
 
-        return new TagResource($tag);
+        return new TagResource($tag->load('notes'));
     }
 
     /**

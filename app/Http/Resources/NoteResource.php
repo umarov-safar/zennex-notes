@@ -25,7 +25,8 @@ class NoteResource extends JsonResource
             'user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'owner' => $this->whenLoaded('owner')
+            'owner' => new UserResource($this->whenLoaded('owner')),
+            'tags' => TagResource::collection($this->whenLoaded('tags'))
         ];
     }
 }

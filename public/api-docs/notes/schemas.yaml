@@ -33,6 +33,15 @@ NoteFillableProperties:
       description: Описание заметки
       example: Описание заметки здесь
 
+TagsIds:
+  type: object
+  properties:
+    tags:
+      type: array
+      description: IDs тегов
+      items:
+        type: integer
+      example: [ 1, 2, 3 ]
 
 Required:
   required:
@@ -42,13 +51,22 @@ Required:
 NoteRequest:
   allOf:
     - $ref: '#/NoteFillableProperties'
+    - $ref: '#/TagsIds'
     - $ref: '#/Required'
+
+NoteIncludes:
+  type: object
+  properties:
+    tags:
+      type: array
+      items:
+        $ref: '../tags/schemas.yaml#/Tag'
 
 Note:
   allOf:
     - $ref: '#/NoteReadOnlyProperties'
     - $ref: '#/NoteFillableProperties'
-
+    - $ref: '#/NoteIncludes'
 NoteResponse:
   type: object
   properties:

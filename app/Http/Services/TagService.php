@@ -16,16 +16,16 @@ class TagService
 
     }
 
-    public function upsert(array $data, Tag $note = null): Tag
+    public function upsert(array $data, Tag $tag = null): Tag
     {
         return Tag::updateOrCreate(
-            ['id' => $note?->id],
+            ['id' => $tag?->id],
             $data
         );
     }
 
-    public function destroy(Tag $note)
+    public function destroy(Tag $tag)
     {
-        $note->delete();
+        $tag->delete();
     }
 }

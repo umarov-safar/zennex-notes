@@ -9,7 +9,7 @@ use App\Http\Resources\EmptyResource;
 use App\Http\Resources\NoteResource;
 use App\Http\Services\NoteService;
 use App\Models\Note;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -33,15 +33,17 @@ class NoteController extends Controller
     {
         $this->authorize('view', $note);
 
-        return new NoteResource($note);
+        return new NoteResource($note->load('tags'));
     }
-
 
     public function update(UpdateNoteRequest $request, Note $note): NoteResource
     {
         $this->authorize('update', $note);
 
-        return new NoteResource($this->noteService->upsert($request->validated(), $note));
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        return new NoteResource($this->noteService->upsert($data, $note));
     }
 
     public function destroy(Note $note)
